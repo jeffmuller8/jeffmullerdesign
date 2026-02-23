@@ -1,11 +1,11 @@
-### your site title here
+### Jeff Muller Design Portfolio
 
-title: Your Name
-description: subtitle | affiliations | motto
+title: Jeff Muller
+description: UX Designer | Industrial Designer | Visual Designer
 
-baseurl: /gradfolio #name of GitHub repository
-url: "" #custom url to be used instead of GitHub repository
-email: #
+baseurl: "" # no baseurl for Firebase hosting
+url: "https://jeffmullerdesign.com"
+email: jeff@jeffmullerdesign.com
 
 # Pagination
 paginate: 4
@@ -13,14 +13,14 @@ permalink: /blog/:year/:title/
 paginate_path: /blog/page:num/
 
 # Social media links in footer
-linkedin: "#"
-stackoverflow: "#"
+linkedin: "jeffmuller"
+instagram: "designmeaportrait"
+facebook: "#"
 github: "#"
+stackoverflow: "#"
 researchgate: "#"
 orcid: "#"
 quora: "#"
-instagram: "#"
-facebook: "#"
 bluesky: "#"
 
 # Markdown
@@ -28,7 +28,7 @@ highlighter: rouge
 markdown: kramdown
 
 # Tracker
-analytics:
+analytics: UA-6862985-2
 
 # optimization -> compress.html
 compress_html:
@@ -47,12 +47,22 @@ collections:
     output: true
     permalink: /projects/:name/
     order:
-      - shortProject.md
-      - longerProjectTitle.md
-      - redirect.md
-      - project4.md
-      - project5.md
-      - project6.md
+      - library.md
+      - ultrasonic.md
+      - tractor.md
+      - autoivi.md
+      - defjam.md
+      - conference.md
+      - ivi.md
+      - cadet.md
+      - underdog.md
+      - voyager.md
+      - rocket.md
+      - hoops.md
+      - football.md
+      - viber.md
+      - luekens.md
+      - sos.md
 
 sass:
   sass_dir: /assets/css/_sass

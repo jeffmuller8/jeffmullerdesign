@@ -1,0 +1,54 @@
+---
+layout: default
+---
+
+<section class="hero">
+    <h1><span class="name-accent">Jeff Muller</span></h1>
+    <p class="subtitle">
+        A creative designer interested in solving challenging problems through a design thinking iterative process.
+    </p>
+</section>
+
+<section class="featured-section">
+    <p class="section-title">Featured Work</p>
+
+    <div class="featured-grid">
+        {% assign featured_projects = "library,visualdiff,ultrasonic,underdog" | split: "," %}
+        {% for project_name in featured_projects %}
+            {% for project in site.projects %}
+                {% if project.slug == project_name %}
+                {% assign project_images_path = '/assets/images/portfolio/' | append: project.slug | append: '/images/' %}
+                {% assign gallery_images = site.static_files | where_exp: "file", "file.path contains project_images_path" %}
+                <div class="featured-card">
+                    <a href="{{ project.url | relative_url }}">
+                        <div class="featured-image">
+                            {% if project.image %}
+                            <img src="{{ project.image | relative_url }}" alt="{{ project.title }}" class="img-default">
+                            {% else %}
+                            <img src="{{ '/assets/images/portfolio/' | append: project.slug | append: '/hero.gif' | relative_url }}" alt="{{ project.title }}" class="img-default" onerror="this.style.display='none'">
+                            {% endif %}
+                            {% if project.hover_image %}
+                            <img src="{{ project.hover_image | relative_url }}" alt="{{ project.title }}" class="img-hover">
+                            {% elsif gallery_images.size > 0 %}
+                            <img src="{{ gallery_images.first.path | relative_url }}" alt="{{ project.title }}" class="img-hover">
+                            {% endif %}
+                        </div>
+                        <div class="title-tab">
+                            <h3>{{ project.title }}</h3>
+                        </div>
+                        <div class="featured-content">
+                            <span class="category-tag">{{ project.category }}</span>
+                            <p>{{ project.description }}</p>
+                            <span class="meta">{{ project.client }} · {{ project.project_date }}</span>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <a href="{{ '/projects/' | relative_url }}" class="view-all">
+        View all projects <i class="fas fa-arrow-right"></i>
+    </a>
+</section>

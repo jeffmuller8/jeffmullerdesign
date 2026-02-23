@@ -1,52 +1,348 @@
----
-# layout: compress
----
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1" name="viewport">
-        <link rel="stylesheet" href="{{site.baseurl}}/assets/css/main.css">
+    {% seo %}
 
-        <h1 class="post-headline">{{site.title}}</h1>
-        <h3 class="post-description">{{site.description}}</h3>
+    <script src="https://kit.fontawesome.com/your-kit.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
 
-        {% include navigation.html %}
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
+            <span class="header-tagline">Passionate Designer</span>
+            <div class="header-right">
+                <nav class="site-nav">
+                    <a href="{{ '/' | relative_url }}">Home</a>
+                    <a href="{{ '/projects/' | relative_url }}">Projects</a>
+                    <a href="{{ '/blog/' | relative_url }}">Blog</a>
+                    <a href="{{ '/about/' | relative_url }}">About</a>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-icon toggle-sun"><i class="fas fa-sun"></i></span>
+                        <span class="toggle-icon toggle-moon"><i class="fas fa-moon"></i></span>
+                        <span class="toggle-knob"></span>
+                    </span>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Open menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
 
-        {% seo %}
+    </header>
 
-        {% include favicon.html %}
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+        <nav class="mobile-nav">
+            <a href="{{ '/' | relative_url }}">Home</a>
+            <a href="{{ '/projects/' | relative_url }}">Projects</a>
+            <a href="{{ '/blog/' | relative_url }}">Blog</a>
+            <a href="{{ '/about/' | relative_url }}">About</a>
+            <button class="mobile-theme-toggle" id="mobile-theme-toggle" aria-label="Toggle dark mode">
+                <span class="toggle-track">
+                    <span class="toggle-icon toggle-sun"><i class="fas fa-sun"></i></span>
+                    <span class="toggle-icon toggle-moon"><i class="fas fa-moon"></i></span>
+                    <span class="toggle-knob"></span>
+                </span>
+                <span class="toggle-label">Toggle Theme</span>
+            </button>
+        </nav>
+    </div>
 
-        {% include mathjax.html %}
+    <main>
+        {{ content }}
+    </main>
 
-        <!-- Load fontawesome here for faster loadtimes: https://stackoverflow.com/a/35880730/9523246 -->
-        <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v6.7.2/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+    <footer>
+        <div class="footer-content">
+            <p class="copy">
+                &copy; {{ site.title }} {{ site.time | date: '%Y' }}
+            </p>
+            <div class="social-links">
+                {% if site.linkedin and site.linkedin != "#" %}
+                <a href="https://linkedin.com/in/{{ site.linkedin }}" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                {% endif %}
+                {% if site.instagram and site.instagram != "#" %}
+                <a href="https://instagram.com/{{ site.instagram }}" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                {% endif %}
+                {% if site.github and site.github != "#" %}
+                <a href="https://github.com/{{ site.github }}" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </footer>
 
-    </head>
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous image">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-next" id="lightbox-next" aria-label="Next image">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightbox-img">
+        </div>
+    </div>
 
-    <body>
-        <main>
-            <article>
-                {{ content }}
-            </article>
-        </main>
+    <script>
+        // Mobile Navigation Toggle
+        (function() {
+            const hamburger = document.getElementById('hamburger');
+            const overlay = document.getElementById('mobile-nav-overlay');
+            const body = document.body;
+            const tagline = document.querySelector('.header-tagline');
+            const nav = document.querySelector('.site-nav');
+            const firstNavLink = nav ? nav.querySelector('a') : null;
 
-        <footer>
-          <p class="copy">
-            <small> &copy; {{site.title}} {{ site.time | date: '%Y' }}
-                    | Powered by Jekyll and
-                    <a target="_blank" href="https://github.com/jitinnair1/gradfolio/">Gradfolio</a>.
-                    Last updated on {{ site.time | date_to_long_string }}
-            </small>
-          </p>
+            // Check if nav is too close to tagline
+            function checkNavProximity() {
+                if (!tagline || !firstNavLink) return;
 
-        {% include social-footer.html %}
+                // Temporarily show nav to measure it
+                const wasMobileMode = body.classList.contains('mobile-nav-mode');
+                body.classList.remove('mobile-nav-mode');
 
-        </footer>
+                // Force reflow to get accurate measurements
+                void nav.offsetWidth;
 
-        {% include analytics.html %}
+                const taglineRect = tagline.getBoundingClientRect();
+                const navRect = firstNavLink.getBoundingClientRect();
+                const gap = navRect.left - taglineRect.right;
 
-    </body>
+                if (gap < 5) {
+                    body.classList.add('mobile-nav-mode');
+                }
+                // If gap >= 5, mobile-nav-mode stays removed (standard nav shows)
+            }
 
+            // Check on load and resize
+            checkNavProximity();
+            window.addEventListener('resize', checkNavProximity);
+
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                overlay.classList.toggle('active');
+                body.classList.toggle('nav-open');
+            });
+
+            // Close menu when clicking a link
+            overlay.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    overlay.classList.remove('active');
+                    body.classList.remove('nav-open');
+                });
+            });
+
+            // Close menu when clicking outside
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    hamburger.classList.remove('active');
+                    overlay.classList.remove('active');
+                    body.classList.remove('nav-open');
+                }
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    overlay.classList.remove('active');
+                    body.classList.remove('nav-open');
+                }
+            });
+        })();
+
+        // Theme Toggle
+        (function() {
+            const toggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+
+            // Check for saved preference, otherwise default to dark
+            const savedTheme = localStorage.getItem('theme');
+
+            // Set initial theme
+            if (savedTheme) {
+                html.setAttribute('data-theme', savedTheme);
+            } else {
+                html.setAttribute('data-theme', 'dark');
+            }
+
+            const mobileToggle = document.getElementById('mobile-theme-toggle');
+
+            // Toggle theme on click
+            function toggleTheme() {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            }
+
+            toggle.addEventListener('click', toggleTheme);
+            mobileToggle.addEventListener('click', toggleTheme);
+
+        })();
+
+        // Project Filter Chips
+        (function() {
+            const filterChips = document.querySelectorAll('.filter-chip');
+            const projectCards = document.querySelectorAll('.project-card[data-category]');
+
+            if (filterChips.length === 0) return;
+
+            filterChips.forEach(function(chip) {
+                chip.addEventListener('click', function() {
+                    // Remove active class from all chips
+                    filterChips.forEach(c => c.classList.remove('active'));
+                    // Add active to clicked chip
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    // Separate cards into show and hide groups
+                    const toHide = [];
+                    const toShow = [];
+
+                    projectCards.forEach(function(card) {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            toShow.push(card);
+                        } else {
+                            toHide.push(card);
+                        }
+                    });
+
+                    // Phase 1: Fade out cards to hide
+                    toHide.forEach(function(card) {
+                        if (!card.classList.contains('filtered-out')) {
+                            card.classList.add('filtering-out');
+                        }
+                    });
+
+                    // Phase 2: After fade out (500ms), hide them and show the others
+                    setTimeout(function() {
+                        // Hide the faded cards
+                        toHide.forEach(function(card) {
+                            card.classList.remove('filtering-out');
+                            card.classList.add('filtered-out');
+                        });
+
+                        // Show cards that were hidden - start invisible
+                        toShow.forEach(function(card) {
+                            if (card.classList.contains('filtered-out')) {
+                                card.classList.add('filtering-in');
+                                card.classList.remove('filtered-out');
+                            }
+                        });
+
+                        // Phase 3: Fade in the newly visible cards
+                        requestAnimationFrame(function() {
+                            requestAnimationFrame(function() {
+                                toShow.forEach(function(card) {
+                                    card.classList.remove('filtering-in');
+                                });
+                            });
+                        });
+                    }, 500);
+                });
+            });
+        })();
+
+        // Lightbox
+        (function() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeBtn = document.getElementById('lightbox-close');
+            const prevBtn = document.getElementById('lightbox-prev');
+            const nextBtn = document.getElementById('lightbox-next');
+
+            let currentImages = [];
+            let currentIndex = 0;
+
+            // Find all gallery images
+            const galleryItems = document.querySelectorAll('.gallery-item img');
+
+            galleryItems.forEach(function(img, index) {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', function() {
+                    currentImages = Array.from(galleryItems).map(i => i.src);
+                    currentIndex = index;
+                    openLightbox(img.src);
+                });
+            });
+
+            function openLightbox(src) {
+                lightboxImg.src = src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                updateNavButtons();
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function showPrev() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    lightboxImg.src = currentImages[currentIndex];
+                    updateNavButtons();
+                }
+            }
+
+            function showNext() {
+                if (currentIndex < currentImages.length - 1) {
+                    currentIndex++;
+                    lightboxImg.src = currentImages[currentIndex];
+                    updateNavButtons();
+                }
+            }
+
+            function updateNavButtons() {
+                prevBtn.style.display = currentIndex > 0 ? 'flex' : 'none';
+                nextBtn.style.display = currentIndex < currentImages.length - 1 ? 'flex' : 'none';
+            }
+
+            closeBtn.addEventListener('click', closeLightbox);
+            prevBtn.addEventListener('click', showPrev);
+            nextBtn.addEventListener('click', showNext);
+
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') showPrev();
+                if (e.key === 'ArrowRight') showNext();
+            });
+        })();
+    </script>
+
+    {% include analytics.html %}
+</body>
 </html>

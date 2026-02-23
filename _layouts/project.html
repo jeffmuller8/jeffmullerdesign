@@ -1,0 +1,79 @@
+---
+layout: default
+---
+
+{% if page.password_protected %}
+<div class="password-overlay" id="password-overlay">
+    <div class="password-modal">
+        <h2>Password Required</h2>
+        <p>This project is password protected.</p>
+        <form id="password-form">
+            <input type="password" id="password-input" placeholder="Enter password" autocomplete="off">
+            <button type="submit">Unlock</button>
+        </form>
+        <p class="password-error" id="password-error"></p>
+    </div>
+</div>
+<script>
+(function() {
+    var pwd = '{{ page.password }}';
+    var overlay = document.getElementById('password-overlay');
+    var form = document.getElementById('password-form');
+    var input = document.getElementById('password-input');
+    var error = document.getElementById('password-error');
+    var storageKey = 'project_unlocked_{{ page.slug }}';
+
+    if (sessionStorage.getItem(storageKey) === 'true') {
+        overlay.style.display = 'none';
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value === pwd) {
+            sessionStorage.setItem(storageKey, 'true');
+            overlay.style.display = 'none';
+        } else {
+            error.textContent = 'Incorrect password';
+            input.value = '';
+            input.focus();
+        }
+    });
+})();
+</script>
+{% endif %}
+
+<div class="project-hero">
+    {% if page.image %}
+    <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+    {% else %}
+    <img src="{{ '/assets/images/portfolio/' | append: page.slug | append: '/hero.gif' | relative_url }}" alt="{{ page.title }}" onerror="this.parentElement.style.background='#1a1a1a'">
+    {% endif %}
+    <div class="overlay">
+        <h1>{{ page.title }}</h1>
+        <div class="project-meta">
+            {% if page.client %}<span><strong>Client:</strong> {{ page.client }}</span>{% endif %}
+            {% if page.role %}<span><strong>Role:</strong> {{ page.role }}</span>{% endif %}
+            {% if page.project_date %}<span><strong>Date:</strong> {{ page.project_date }}</span>{% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="project-body">
+    {{ content }}
+
+    {% assign project_images_path = '/assets/images/portfolio/' | append: page.slug | append: '/images/' %}
+    {% assign images = site.static_files | where_exp: "file", "file.path contains project_images_path" %}
+
+    {% if images.size > 0 %}
+    <h2>Project Gallery</h2>
+    <div class="project-gallery">
+        <div class="gallery-grid">
+            {% for image in images %}
+            <div class="gallery-item">
+                <img src="{{ image.path | relative_url }}" alt="{{ page.title }} screenshot">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
