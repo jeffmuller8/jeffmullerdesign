@@ -3,9 +3,8 @@ layout: default
 ---
 
 <section class="hero">
-    <h1><span class="name-accent">Jeff Muller</span></h1>
     <p class="subtitle">
-        A creative designer interested in solving challenging problems through a design thinking iterative process.
+        Lead UX Designer specializing in complex enterprise tools — from SaaS platforms to financial systems
     </p>
 </section>
 
@@ -13,7 +12,7 @@ layout: default
     <p class="section-title">Featured Work</p>
 
     <div class="featured-grid">
-        {% assign featured_projects = "library,visualdiff,ultrasonic,underdog" | split: "," %}
+        {% assign featured_projects = "library,visualdiff" | split: "," %}
         {% for project_name in featured_projects %}
             {% for project in site.projects %}
                 {% if project.slug == project_name %}

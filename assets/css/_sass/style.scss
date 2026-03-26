@@ -112,12 +112,12 @@ img {
 .site-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: $accent-color !important;
+  color: var(--name-color) !important;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: filter 0.2s ease;
 
   &:hover {
-    color: $accent-hover !important;
+    filter: brightness(1.3);
   }
 }
 
@@ -152,7 +152,11 @@ img {
     transition: color 0.2s ease;
 
     &:hover {
-      color: var(--text-primary);
+      color: #9B2D8E;
+    }
+
+    [data-theme="dark"] &:hover {
+      color: #5ac4ee;
     }
   }
 
@@ -256,7 +260,7 @@ img {
     transition: color 0.2s ease, transform 0.2s ease;
 
     &:hover {
-      color: $accent-color;
+      color: #5ac4ee;
       transform: scale(1.05);
     }
   }
@@ -375,12 +379,12 @@ body.nav-open {
 }
 
 .toggle-sun {
-  left: 6px;
+  left: 4px;
   color: var(--text-primary);
 }
 
 .toggle-moon {
-  right: 6px;
+  right: 4px;
   color: var(--text-secondary);
 }
 
@@ -395,6 +399,17 @@ body.nav-open {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+// Light mode toggle states
+[data-theme="light"], :root:not([data-theme="dark"]) {
+  .toggle-sun {
+    color: #ffffff;
+  }
+
+  .toggle-knob {
+    background: #9b2d8e;
+  }
+}
+
 // Dark mode toggle states
 [data-theme="dark"] {
   .toggle-track {
@@ -406,31 +421,20 @@ body.nav-open {
   }
 
   .toggle-moon {
-    color: #000000;
+    color: #ffffff;
   }
 
   .toggle-knob {
     transform: translateX(28px);
-    background: var(--text-primary);
+    background: #469bd4;
   }
 }
 
 // Hero section
 .hero {
   padding: 160px 24px 60px;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-
-  h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 24px;
-    color: var(--text-primary);
-
-    .name-accent {
-      color: $accent-color;
-    }
-  }
 
   .subtitle {
     font-size: 1.25rem;
@@ -449,7 +453,7 @@ body.nav-open {
   .section-title {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: #9B2D8E;
     text-transform: uppercase;
     letter-spacing: 0.15em;
     margin-bottom: 32px;
@@ -817,8 +821,8 @@ body.nav-open {
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 500;
-  color: $accent-color;
-  background: rgba(163, 22, 33, 0.1);
+  color: var(--tag-text);
+  background: var(--tag-bg);
   padding: 4px 10px;
   border-radius: 4px;
   margin-bottom: 10px;
@@ -1145,16 +1149,39 @@ footer {
 .social-links {
   display: flex;
   gap: 20px;
+  align-items: center;
 
   a {
-    color: var(--text-secondary);
+    color: var(--icon-color);
     font-size: 1.25rem;
-    transition: color 0.2s ease;
+    transition: opacity 0.2s ease;
 
     &:hover {
-      color: var(--text-primary);
+      opacity: 0.7;
+    }
+
+    &.resume-icon {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
     }
   }
+}
+
+// Light mode social icons color (#9b2d8e)
+[data-theme="light"] .social-links a,
+:root:not([data-theme="dark"]) .social-links a {
+  color: #9b2d8e;
+}
+
+// Light mode CV icon - use light mode SVG
+[data-theme="light"] .social-links .resume-icon img,
+:root:not([data-theme="dark"]) .social-links .resume-icon img {
+  content: url('/assets/images/cvicon-light.svg');
 }
 
 // About page styles
@@ -1204,6 +1231,57 @@ footer {
     margin-top: 48px;
     margin-bottom: 16px;
     font-size: 1.5rem;
+    color: #9B2D8E;
+  }
+
+  a:not(.resume-link) {
+    color: #469bd4;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    [data-theme="dark"] & {
+      color: #5ac4ee;
+    }
+  }
+
+  .resume-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--icon-color);
+    color: #0D1B2A;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    i {
+      font-size: 1.2em;
+    }
+
+    .resume-icon-img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) saturate(100%);
+    }
+
+    [data-theme="light"] &,
+    :root:not([data-theme="dark"]) & {
+      color: #ffffff;
+
+      .resume-icon-img {
+        filter: brightness(0) saturate(100%) invert(1);
+      }
+    }
   }
 }
 
@@ -1273,7 +1351,11 @@ blockquote {
   transition: color 0.2s ease;
 
   &:hover {
-    color: var(--text-primary);
+    color: #469bd4;
+  }
+
+  [data-theme="dark"] &:hover {
+    color: #5ac4ee;
   }
 }
 

@@ -9,8 +9,8 @@ $base-line-height: 1.6;
 $spacing-unit: 30px;
 
 // Accent colors (same for both themes)
-$accent-color: #a31621;
-$accent-hover: #7d111a;
+$accent-color: #9B2D8E;
+$accent-hover: #7A2370;
 
 // Border radius
 $radius-sm: 4px;
@@ -26,10 +26,10 @@ $on-desktop: 1280px;
 // CSS Custom Properties for theming
 // Light theme values
 :root, [data-theme="light"] {
-  --bg-primary: #f5f5f5;
-  --bg-secondary: #e8e8e8;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
   --bg-card: #ffffff;
-  --bg-hover: #f0f0f0;
+  --bg-hover: #fafafa;
   --card-outline: #ffffff;
 
   --text-primary: #1a1a1a;
@@ -37,6 +37,12 @@ $on-desktop: 1280px;
   --text-muted: #888888;
 
   --border-color: #d0d0d0;
+
+  --name-color: #9b2d8e;
+  --tag-bg: #B8E8E8;
+  --tag-text: #0D1B2A;
+  --icon-color: #469bd4;
+  --section-heading: #512556;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -47,72 +53,84 @@ $on-desktop: 1280px;
   --overlay-gradient: linear-gradient(transparent, rgba(245, 245, 245, 0.98));
 
   --bg-blur-filter: grayscale(100%) blur(8px) brightness(1.2);
-  --bg-overlay-opacity: 0.75;
+  --bg-overlay-opacity: 0.95;
 }
 
 // Dark theme values
 [data-theme="dark"] {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #141414;
-  --bg-card: #1a1a1a;
-  --bg-hover: #242424;
-  --card-outline: #1a1a1a;
+  --bg-primary: #0D1B2A;
+  --bg-secondary: #132238;
+  --bg-card: #1A2332;
+  --bg-hover: #243044;
+  --card-outline: #1A2332;
 
   --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
-  --text-muted: #666666;
+  --text-secondary: #d6e3f3;
+  --text-muted: #8a9bb0;
 
-  --border-color: #2a2a2a;
+  --border-color: #2A3A4A;
+
+  --name-color: #5ac4ee;
+  --tag-bg: #9B2D8E;
+  --tag-text: #ffffff;
+  --icon-color: #5ac4ee;
+  --section-heading: #512556;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
 
-  --header-bg: rgba(10, 10, 10, 0.9);
-  --overlay-bg: rgba(10, 10, 10, 0.95);
-  --overlay-gradient: linear-gradient(transparent, rgba(10, 10, 10, 0.95));
+  --header-bg: rgba(13, 27, 42, 0.95);
+  --overlay-bg: rgba(13, 27, 42, 0.95);
+  --overlay-gradient: linear-gradient(transparent, rgba(13, 27, 42, 0.95));
 
   --bg-blur-filter: grayscale(100%) blur(8px);
-  --bg-overlay-opacity: 0.8;
+  --bg-overlay-opacity: 0.95;
 }
 
 // System preference fallback (when no data-theme is set)
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #141414;
-    --bg-card: #1a1a1a;
-    --bg-hover: #242424;
-    --card-outline: #1a1a1a;
+    --bg-primary: #0D1B2A;
+    --bg-secondary: #132238;
+    --bg-card: #1A2332;
+    --bg-hover: #243044;
+    --card-outline: #1A2332;
 
     --text-primary: #ffffff;
-    --text-secondary: #a0a0a0;
-    --text-muted: #666666;
+    --text-secondary: #d6e3f3;
+    --text-muted: #8a9bb0;
 
-    --border-color: #2a2a2a;
+    --border-color: #2A3A4A;
+
+    --name-color: #5ac4ee;
+    --tag-bg: #9B2D8E;
+    --tag-text: #ffffff;
+    --icon-color: #5ac4ee;
+    --section-heading: #512556;
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
 
-    --header-bg: rgba(10, 10, 10, 0.9);
-    --overlay-bg: rgba(10, 10, 10, 0.95);
-    --overlay-gradient: linear-gradient(transparent, rgba(10, 10, 10, 0.95));
+    --header-bg: rgba(13, 27, 42, 0.95);
+    --overlay-bg: rgba(13, 27, 42, 0.95);
+    --overlay-gradient: linear-gradient(transparent, rgba(13, 27, 42, 0.95));
 
     --bg-blur-filter: grayscale(100%) blur(8px);
-    --bg-overlay-opacity: 0.8;
+    --bg-overlay-opacity: 0.95;
   }
 }
 
 // Legacy SCSS variables for compatibility (using dark theme values)
-$bg-primary: #0a0a0a;
-$bg-secondary: #141414;
-$bg-card: #1a1a1a;
-$bg-hover: #242424;
+$bg-primary: #0D1B2A;
+$bg-secondary: #132238;
+$bg-card: #1A2332;
+$bg-hover: #243044;
 $text-primary: #ffffff;
 $text-secondary: #a0a0a0;
 $text-muted: #666666;
-$border-color: #2a2a2a;
+$border-color: #2A3A4A;
 $shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
 $shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
 $shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);

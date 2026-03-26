@@ -1,7 +1,7 @@
 ### Jeff Muller Design Portfolio
 
 title: Jeff Muller
-description: UX Designer | Industrial Designer | Visual Designer
+description: UX Designer | Visual Designer
 
 baseurl: "" # no baseurl for Firebase hosting
 url: "https://jeffmullerdesign.com"
@@ -13,7 +13,7 @@ permalink: /blog/:year/:title/
 paginate_path: /blog/page:num/
 
 # Social media links in footer
-linkedin: "jeffmuller"
+linkedin: "jeff-muller-01545a37"
 instagram: "designmeaportrait"
 facebook: "#"
 github: "#"
@@ -48,21 +48,9 @@ collections:
     permalink: /projects/:name/
     order:
       - library.md
+      - visualdiff.md
+      - fxpayments.md
       - ultrasonic.md
-      - tractor.md
-      - autoivi.md
-      - defjam.md
-      - conference.md
-      - ivi.md
-      - cadet.md
-      - underdog.md
-      - voyager.md
-      - rocket.md
-      - hoops.md
-      - football.md
-      - viber.md
-      - luekens.md
-      - sos.md
 
 sass:
   sass_dir: /assets/css/_sass

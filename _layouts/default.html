@@ -18,7 +18,6 @@
     <header class="site-header">
         <div class="header-content">
             <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
-            <span class="header-tagline">Passionate Designer</span>
             <div class="header-right">
                 <nav class="site-nav">
                     <a href="{{ '/' | relative_url }}">Home</a>
@@ -86,6 +85,9 @@
                     <i class="fab fa-github"></i>
                 </a>
                 {% endif %}
+                <a href="{{ '/assets/files/jeffmullerresume.pdf' | relative_url }}" download aria-label="Download Resume" class="resume-icon">
+                    <img src="{{ '/assets/images/cvicon.svg' | relative_url }}" alt="Resume">
+                </a>
             </div>
         </div>
     </footer>

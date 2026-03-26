@@ -12,7 +12,6 @@ permalink: /projects/
         <button class="filter-chip" data-filter="SaaS">SaaS</button>
         <button class="filter-chip" data-filter="Mobile">Mobile</button>
         <button class="filter-chip" data-filter="Embedded Device">Embedded Device</button>
-        <button class="filter-chip" data-filter="Industrial Design">Industrial Design</button>
         <button class="filter-chip" data-filter="Finance">Finance</button>
     </div>
 
